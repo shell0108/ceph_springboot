@@ -83,8 +83,8 @@ public class UserController {
             queryWrapper.like("username", username);
         }
 
-        User currentUser = TokenUtils.getCurrentUser();
-        System.out.println(currentUser.getUsername());
+//        User currentUser = TokenUtils.getCurrentUser();
+//        System.out.println(currentUser.getUsername());
         return Result.success(userService.page(new Page<>(currentPage, size), queryWrapper));
     }
 }

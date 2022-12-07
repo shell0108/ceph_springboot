@@ -17,3 +17,7 @@ mybatis:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+files:
+  upload:
+    path: C:/Users/jhc/Desktop/论文及代码/files/
