@@ -39,7 +39,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             //LOG.error(e);
             throw new ServiceException(Constants.CODE_500, "系统错误");
         }
+
         if(one != null) {
+            if(!one.getEnable()) {
+                throw new ServiceException(Constants.CODE_600, "用户被禁用中, 请联系管理员解禁");
+            }
             BeanUtil.copyProperties(one, userDTO, true);
             String token = TokenUtils.getToken(one.getId().toString(), one.getPassword());
             userDTO.setToken(token);

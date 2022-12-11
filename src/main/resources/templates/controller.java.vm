@@ -1,15 +1,20 @@
 package ${package.Controller};
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jhc.demo.common.Result;
 
-import $!{package.Service}.$!{table.serviceName};
+import ${package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
 
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
 #if(${superControllerClassPackage})
 import ${superControllerClassPackage};
 #end
@@ -32,52 +37,52 @@ import ${superControllerClassPackage};
 class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
 
 #else
+    #if(${superControllerClass})
+    public class ${table.controllerName} extends ${superControllerClass} {
+    #else
+    public class ${table.controllerName} {
+    #end
 
-#if(${superControllerClass})
-public class ${table.controllerName} extends ${superControllerClass} {
-#else
-public class ${table.controllerName} {
-#end
+@Resource
+private ${table.serviceName} ${table.entityPath}Service;
 
-    @Resource
-    private ${table.serviceName} ${table.entityPath}Service;
+// 新增或者更新
+@PostMapping
+public Result save(@RequestBody ${entity} ${table.entityPath}) {
+    ${table.entityPath}Service.saveOrUpdate(${table.entityPath});
+        return Result.success();
+        }
 
-    //新增或更新
-    @PostMapping
-    public Boolean save(@RequestBody ${entity} ${table.entityPath}) {
-        return ${table.entityPath}Service.saveOrUpdate(${table.entityPath});
-    }
+@DeleteMapping("/{id}")
+public Result delete(@PathVariable Integer id) {
+    ${table.entityPath}Service.removeById(id);
+        return Result.success();
+        }
 
-    //删除
-    @DeleteMapping("/{id}")
-    public Boolean delete(@PathVariable Integer id) {
-        return ${table.entityPath}Service.removeById(id);
-    }
-    //删除所有
-    @DeleteMapping("/del/batch")
-    public Boolean deleteBatch(@PathVariable List<Integer> ids) {
-        return ${table.entityPath}Service.removeByIds(ids);
-    }
+@PostMapping("/del/batch")
+public Result deleteBatch(@RequestBody List<Integer> ids) {
+    ${table.entityPath}Service.removeByIds(ids);
+        return Result.success();
+        }
 
-    //查询所有
-    @GetMapping
-    public List<${entity}> findAll() {
-        return ${table.entityPath}Service.list();
-    }
+@GetMapping
+public Result findAll() {
+        return Result.success(${table.entityPath}Service.list());
+        }
 
-    @GetMapping("/{id}")
-    public List<${entity}> findOne(@PathVariable Integer id) {
-        return ${table.entityPath}Service.list();
-    }
+@GetMapping("/{id}")
+public Result findOne(@PathVariable Integer id) {
+        return Result.success(${table.entityPath}Service.getById(id));
+        }
 
-    //分页查询
-    @GetMapping("/page")
-    public Page<${entity}> findPage(@RequestParam Integer currentPage,
-                                    @RequestParam Integer size) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+@GetMapping("/page")
+public Result findPage(@RequestParam Integer currentPage,
+@RequestParam Integer size) {
+        QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
-        return ${table.entityPath}Service.page(new Page<>(currentPage, size), queryWrapper);
-    }
-}
+        return Result.success(${table.entityPath}Service.page(new Page<>(currentPage, size), queryWrapper));
+        }
+
+        }
 
 #end

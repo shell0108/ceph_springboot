@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @TableName("sys_file")
 public class Files {
@@ -18,4 +20,6 @@ public class Files {
     private String md5;
     private Boolean isDelete;
     private Boolean enable;
+    private LocalDateTime createTime;
+    private String owner;
 }

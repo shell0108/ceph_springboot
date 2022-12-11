@@ -5,5 +5,5 @@ public interface Constants {
     String CODE_400 = "400"; //参数不足
     String CODE_401 = "401"; //权限不足
     String CODE_500 = "500"; //系统错误
-    String CODE_600 = "401"; //其它业务逻辑错误
+    String CODE_600 = "600"; //其它业务逻辑错误
 }

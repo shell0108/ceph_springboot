@@ -49,6 +49,9 @@ public class User implements Serializable {
 
     private String avatarUrl;
 
+    private String role;
+
+    private Boolean enable;
 
     public Integer getId() {
         return id;
@@ -56,6 +59,22 @@ public class User implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getUsername() {
