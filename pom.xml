@@ -78,6 +78,25 @@
             <version>3.10.3</version>
         </dependency>
 
+        <!-- Rados Java Api依赖 -->
+        <dependency>
+            <groupId>com.ceph</groupId>
+            <artifactId>rados</artifactId>
+            <version>0.6.0</version>
+        </dependency>
+        <!-- Cephfs 文件系统依赖 -->
+        <dependency>
+            <groupId>com.ceph</groupId>
+            <artifactId>libcephfs</artifactId>
+            <version>0.80.5</version>
+        </dependency>
+
+        <!--swift-->
+        <dependency>
+            <groupId>org.javaswift</groupId>
+            <artifactId>joss</artifactId>
+            <version>0.10.2</version>
+        </dependency>
     </dependencies>
 
     <build>
